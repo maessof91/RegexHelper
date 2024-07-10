@@ -15,16 +15,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RegexHelper
 {
-
     public partial class Form1 : Form
     {
-
         private RichTextBox richTextBox;
 
         int inputGroups = 0;
 
         private List<RichTextBox> inputGroupsTextBoxes;
 
+        public static int MaxMatches = 600;
+        public static int MaxGroups = 1200;
+        public static int Test = 1200;
+        public static string NppPath = "";
 
         public Form1()
         {
@@ -50,16 +52,10 @@ namespace RegexHelper
 
             clipboardSearched.BackColor = System.Drawing.Color.FromArgb(45, 45, 48); // Dark background color
             clipboardSearched.ForeColor = System.Drawing.Color.White;
-            LogExecutionTime();
+            Log.LogExecutionTime();
 
             LoadSettings();
         }
-
-
-        public static int MaxMatches = 600;
-        public static int MaxGroups = 1200;
-        public static int Test = 1200;
-        public static string NppPath = "";
 
         private static void LoadSettings()
         {
@@ -71,7 +67,7 @@ namespace RegexHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
 
             clipboardSearched.AutoWordSelection = false; ;
             clipboardReplaced.AutoWordSelection = false; ;
@@ -107,15 +103,12 @@ namespace RegexHelper
                 pos += numberLength + 1;
                 groupIndex++;
             }
-            LogExecutionTime();
-
-
+            Log.LogExecutionTime();
         }
-
 
         private void GroupInput_TextChanged(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             UpdateRegexInputBox();
 
             UpdateClipboardSearchTextArea();
@@ -123,13 +116,13 @@ namespace RegexHelper
             UpdateRegexReplaceInputAndClipboardReplacedTextView();
 
             UpdateRegexViewInputBox();
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
         //Search Text Box
         private void regexInput_TextChanged_1(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             UpdateRegexInputBox();
 
             UpdateClipboardSearchTextArea();
@@ -137,21 +130,21 @@ namespace RegexHelper
             UpdateRegexReplaceInputAndClipboardReplacedTextView();
 
             UpdateRegexViewInputBox();
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
         //Replace Rext Box
         private void regexReplace_TextChanged(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             UpdateRegexReplaceInputAndClipboardReplacedTextView();
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void regexInput_KeyDown(object sender, KeyEventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             if (e.Control && e.KeyCode == Keys.V)
             {
                 // Get the clipboard data as plain text
@@ -161,13 +154,13 @@ namespace RegexHelper
                 // Cancel the paste operation
                 e.SuppressKeyPress = true;
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void clipboardReplaced_KeyDown(object sender, KeyEventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             if (e.Control && e.KeyCode == Keys.V)
             {
                 // Get the clipboard data as plain text
@@ -193,13 +186,13 @@ namespace RegexHelper
                 // Cancel the paste operation
                 e.SuppressKeyPress = true;
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void clipboardSearched_KeyDown(object sender, KeyEventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             if (e.Control && e.KeyCode == Keys.V)
             {
                 // Get the clipboard data as plain text
@@ -209,13 +202,13 @@ namespace RegexHelper
                 // Cancel the paste operation
                 e.SuppressKeyPress = true;
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void RegexInput_VisibleChanged(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             BeginInvoke((System.Windows.Forms.MethodInvoker)delegate
             {
                 regexInput.BackColor = System.Drawing.Color.FromArgb(45, 45, 48); // Dark background color
@@ -225,25 +218,25 @@ namespace RegexHelper
                 regexGeneratedText2.BackColor = System.Drawing.Color.FromArgb(45, 45, 48); // Dark background color
                 regexGeneratedText2.ForeColor = System.Drawing.Color.White;
             });
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void ClipboardReplaced_VisibleChanged(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             BeginInvoke((System.Windows.Forms.MethodInvoker)delegate
             {
                 clipboardReplaced.BackColor = System.Drawing.Color.FromArgb(45, 45, 48); // Dark background color
                 clipboardReplaced.ForeColor = System.Drawing.Color.White;
             });
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void LeftPaneDisplayMatches(MatchCollection matches, RichTextBox inputBox)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             var matchesCount = matches.Count;
 
             inputBox.SelectionStart = 0;
@@ -313,13 +306,13 @@ namespace RegexHelper
                 }
 
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void UpdateClipboardSearchTextArea()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
 
             if (
               string.IsNullOrEmpty(regexInput.Text)
@@ -327,7 +320,7 @@ namespace RegexHelper
               string.IsNullOrEmpty(clipboardSearched.Text)
               )
             {
-                LogExecutionTime();
+                Log.LogExecutionTime();
                 return;
             }
 
@@ -350,7 +343,7 @@ namespace RegexHelper
                 // richTextBox1.Text = "Invalid regular expression pattern.";
             }
             
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
         private string SubstituteGroupsTextBoxesIn(string regexPattern)
@@ -365,16 +358,15 @@ namespace RegexHelper
 
         private void UpdateClipboardText()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             string clipboardText = Clipboard.GetText();
             this.clipboardSearched.Text = clipboardText ?? "Clipboard does not contain text.";
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
-
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             //HighlightRegexSpecialCharacters(regexInput);
 
             regexInput.SelectionStart = 0;
@@ -382,14 +374,13 @@ namespace RegexHelper
             regexInput.SelectionBackColor = Color.Yellow;
 
             UpdateClipboardSearchTextArea();
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
-
 
         private void AddGroup_Click(object sender, EventArgs e)
         {
             Console.Clear();
-            LogExecutionTime();
+            Log.LogExecutionTime();
             RichTextBox newTextBox = new RichTextBox();
             newTextBox.Size = new System.Drawing.Size(483, 23);
             inputGroups++;
@@ -439,13 +430,13 @@ namespace RegexHelper
             tableLayoutPanel1.RowStyles.Add(newRowStyle);
 
             newTextBox.Focus();
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void UpdateRegexInputBox()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             int cursorPosition = regexInput.SelectionStart;
 
             regexInput.SelectionStart = 0;
@@ -466,13 +457,13 @@ namespace RegexHelper
                 }
             }
 
-            var pairs = GetPairs(regexInput.Text, '(', ')');
+            var pairs = Util.GetPairs(regexInput.Text, '(', ')');
             pairs = pairs.OrderBy(u => u.Item1).ToList();
 
             var col = 1;
             foreach (var pair in pairs)
             {
-                MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col],Colors.groupColorsContrasted[col], regexInput);
+                Util.MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col],Colors.groupColorsContrasted[col], regexInput);
 
                 col++;
             }
@@ -481,13 +472,13 @@ namespace RegexHelper
             {
                 regexInput.Select(cursorPosition, 0);
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
 
         private void UpdateRegexViewInputBox()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             string regexPattern = regexInput.Text;
 
             for (int i = inputGroupsTextBoxes.Count - 1; i >= 0; i--)
@@ -495,54 +486,7 @@ namespace RegexHelper
                 regexPattern = regexPattern.Replace("#" + (i + 1), inputGroupsTextBoxes[i].Text);
             }
 
-            var text = regexPattern;
-
-            text = text.Replace(@"[\s\S\r\n]", "●");
-            text = text.Replace(@"[\s\S\n\r]", "●");
-            text = text.Replace(@"[\s\r\S\n]", "●");
-            text = text.Replace(@"[\s\r\n\S]", "●");
-            text = text.Replace(@"[\s\n\S\r]", "●");
-            text = text.Replace(@"[\s\n\r\S]", "●");
-            text = text.Replace(@"[\S\s\r\n]", "●");
-            text = text.Replace(@"[\S\s\n\r]", "●");
-            text = text.Replace(@"[\S\r\s\n]", "●");
-            text = text.Replace(@"[\S\r\n\s]", "●");
-            text = text.Replace(@"[\S\n\s\r]", "●");
-            text = text.Replace(@"[\S\n\r\s]", "●");
-            text = text.Replace(@"[\r\s\S\n]", "●");
-            text = text.Replace(@"[\r\s\n\S]", "●");
-            text = text.Replace(@"[\r\S\s\n]", "●");
-            text = text.Replace(@"[\r\S\n\s]", "●");
-            text = text.Replace(@"[\r\n\s\S]", "●");
-            text = text.Replace(@"[\r\n\S\s]", "●");
-            text = text.Replace(@"[\n\s\S\r]", "●");
-            text = text.Replace(@"[\n\s\r\S]", "●");
-            text = text.Replace(@"[\n\S\s\r]", "●");
-            text = text.Replace(@"[\n\S\r\s]", "●");
-            text = text.Replace(@"[\n\r\s\S]", "●");
-            text = text.Replace(@"[\n\r\S\s]", "●");
-
-
-            text = text.Replace("\\r?\\n", "⏎");
-            text = text.Replace("\\r", "`r");
-            text = text.Replace("\\n", "`n");
-
-            text = text.Replace("\\w", "💬");
-            text = text.Replace("\\d", "🔟");
-            //text = text.Replace(".", "🤷‍");
-            text = text.Replace("^", "🏁");
-            text = text.Replace("$", "🔚");
-            text = text.Replace("\\b", "🎁");
-            //text = text.Replace("+", "🍄");
-            //text = text.Replace("*", "♾");
-            //text = text.Replace("?", "❓");
-            text = text.Replace("\\s", "﹏");
-
-            text = text.Replace("\\", "\u200D");
-            text = text.Replace("(", "\u200B");
-            text = text.Replace(")", "\u200C");
-            text = text.Replace("\u200D" + "\u200B", "\u200D" + "(");
-            text = text.Replace("\u200D" + "\u200C", "\u200D" + ")");
+            string text = RegexView.AlterRegexViewText(regexPattern);
 
             regexGeneratedText2.SelectionStart = 0;
             regexGeneratedText2.SelectionLength = text.Length;
@@ -576,7 +520,7 @@ namespace RegexHelper
                 }
             }
 
-            var pairs = GetPairs(text, '\u200B', '\u200C');
+            var pairs = Util.GetPairs(text, '\u200B', '\u200C');
 
             pairs = pairs.OrderBy(u => u.Item1).ToList();
 
@@ -585,72 +529,26 @@ namespace RegexHelper
             var col = 1;
             foreach (var pair in pairs)
             {
-                MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col], Colors.groupColorsContrasted[col], regexGeneratedText2);
+                Util.MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col], Colors.groupColorsContrasted[col], regexGeneratedText2);
 
                 col++;
             }
-            LogExecutionTime();
-        }
-
-
-        void MarkTextFull(int indexStart, int indexEnd, Color color,Color colorBack, RichTextBox input)
-        {
-            input.SelectionStart = indexStart;
-            input.SelectionLength = indexEnd - indexStart;
-            input.SelectionColor = color;
-            input.SelectionBackColor = colorBack;
-        }
-
-
-        static List<(int, int)> GetPairs(string input, char start, char end)
-        {
-            LogExecutionTime();
-            var pairs = new List<(int, int)>();
-            var stack = new Stack<int>();
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == start && (i == 0 || input[i - 1] != '\\'))
-                {
-                    stack.Push(i);
-                }
-                else if (input[i] == end && (i == 0 || input[i - 1] != '\\'))
-                {
-                    if (stack.Count > 0)
-                    {
-                        int openingIndex = stack.Pop();
-                        pairs.Add((openingIndex, i));
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }
-
-            if (stack.Count > 0)
-            {
-            }
-
-            LogExecutionTime();
-            return pairs;
-        }
-
-
+            Log.LogExecutionTime();
+        }       
 
         void UpdateRegexReplaceInputAndClipboardReplacedTextView()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
             string regexPattern = UpdateRegexReplaceInputBox();
 
             UpdateClipboardReplacedTextPannel(regexPattern);
 
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
         private void UpdateClipboardReplacedTextPannel(string regexPattern)
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
 
             string replacePattern = "\u200B" + regexReplaceInputBox.Text + "\u200C" + "\u200D";
             replacePattern = Regex.Replace(replacePattern, @"\$(\d+)", "\u200B" + "$$$1" + "\u200C");
@@ -677,7 +575,7 @@ namespace RegexHelper
                     clipboardReplaced.SelectionLength = clipboardReplaced.Text.Length;
                     clipboardReplaced.SelectionColor = Color.White;
 
-                    var pairs = GetPairs(clipboardReplaced.Text, '\u200B', '\u200C');
+                    var pairs = Util.GetPairs(clipboardReplaced.Text, '\u200B', '\u200C');
                     //var pairs = GetPairs(clipboardReplaced.Text, '>', '<');
 
                     pairs = MarkMatchesAndGroups(pairs);
@@ -687,7 +585,7 @@ namespace RegexHelper
 
                 }
             }
-            LogExecutionTime();
+            Log.LogExecutionTime();
         }
 
         private List<(int, int)> MarkMatchesAndGroups(List<(int, int)> pairs)
@@ -695,8 +593,6 @@ namespace RegexHelper
             var endOfMatches = Regex.Matches(clipboardReplaced.Text, "\u200D");
 
             var endOfMatchesIndexes = endOfMatches.Select(m => (m as Match).Index).OrderBy(i => i).ToList();
-
-
 
             pairs = pairs.OrderBy(u => u.Item1).ToList();
             var col = 0;
@@ -713,7 +609,7 @@ namespace RegexHelper
                     col = 0;
                     i++;
                 }
-                MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col], Colors.groupColorsContrasted[col], clipboardReplaced);
+                Util.MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col], Colors.groupColorsContrasted[col], clipboardReplaced);
 
                 col++;
             }
@@ -723,7 +619,7 @@ namespace RegexHelper
 
         private string UpdateRegexReplaceInputBox()
         {
-            LogExecutionTime();
+            Log.LogExecutionTime();
 
             int regexReplacecursorPosition = regexReplaceInputBox.SelectionStart;
 
@@ -754,51 +650,11 @@ namespace RegexHelper
                 regexReplaceInputBox.SelectionStart = regexReplacecursorPosition;
             }
 
-            LogExecutionTime();
+            Log.LogExecutionTime();
             return regexPattern;
         }
 
-        private static Dictionary<string, Stopwatch> stopwatches = new Dictionary<string, Stopwatch>();
-
-        public static int indent = 0;
-        public static void LogExecutionTime()
-        {
-
-            // Get the method name where LogExecutionTime was called from
-            var callingMethodName = new StackTrace().GetFrame(1).GetMethod().Name;
-
-            //Console.WriteLine($"Method: {callingMethodName}");
-
-            if (!stopwatches.ContainsKey(callingMethodName))
-            {
-                indent++;
-                stopwatches[callingMethodName] = Stopwatch.StartNew();
-                string tabs = string.Join("", Enumerable.Repeat("\t", indent));
-                Console.WriteLine($"{tabs}New Method: {callingMethodName}");
-                Console.WriteLine($"{tabs}Method: {callingMethodName}: Start");
-
-            }
-            else
-            {
-                var stopwatch = stopwatches[callingMethodName];
-
-                if (stopwatch.IsRunning)
-                {
-                    stopwatch.Stop();
-                    string tabs = string.Join("", Enumerable.Repeat("\t", indent));
-                    Console.WriteLine($"{tabs}Method: {callingMethodName}: End    :{stopwatch.ElapsedMilliseconds} ms");
-                    indent--;
-                }
-                else
-                {
-                    indent++;
-                    string tabs = string.Join("", Enumerable.Repeat("\t", indent));
-                    Console.WriteLine($"{tabs}Method: {callingMethodName}: Start");
-                    stopwatches[callingMethodName] = Stopwatch.StartNew();
-
-                }
-            }
-        }
+       
 
         #region NotUsed
         void AllBelowHereIsNonsence______________________________________()
@@ -806,48 +662,7 @@ namespace RegexHelper
 
         }
 
-        //void MarkText(int indexStart, int indexEnd, Color color, RichTextBox regexInput)
-        //{
-        //    regexInput.SelectionStart = indexStart;
-        //    regexInput.SelectionLength = 1;
-        //    regexInput.SelectionColor = color;
-
-        //    regexInput.SelectionStart = indexEnd;
-        //    regexInput.SelectionLength = 1;
-        //    regexInput.SelectionColor = color;
-        //}
-
-        //static List<(int, int)> GetBracketPairs(string input)
-        //{
-        //    var pairs = new List<(int, int)>();
-        //    var stack = new Stack<int>();
-
-        //    for (int i = 0; i < input.Length; i++)
-        //    {
-        //        if (input[i] == '(' && (i == 0 || input[i - 1] != '\\'))
-        //        {
-        //            stack.Push(i);
-        //        }
-        //        else if (input[i] == ')' && (i == 0 || input[i - 1] != '\\'))
-        //        {
-        //            if (stack.Count > 0)
-        //            {
-        //                int openingIndex = stack.Pop();
-        //                pairs.Add((openingIndex, i));
-        //            }
-        //            else
-        //            {
-
-        //            }
-        //        }
-        //    }
-
-        //    if (stack.Count > 0)
-        //    {
-        //    }
-
-        //    return pairs;
-        //}
+      
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
