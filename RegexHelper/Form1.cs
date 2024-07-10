@@ -17,6 +17,27 @@ namespace RegexHelper
 {
     public partial class Form1 : Form
     {
+        //Form1
+        //LoadSettings
+        //Form1_Load
+        //GroupInput_TextChanged
+        //regexInput_TextChanged_1 > Improtant
+        //regexReplace_TextChanged
+        //regexInput_KeyDown
+        //clipboardReplaced_KeyDown
+        //clipboardSearched_KeyDown
+        //clipboardSearched_KeyUp
+        //textBox1_TextChanged
+        //AddGroup_Click
+        //UpdateRegexInputBox
+        //UpdateRegexViewInputBox
+        //UpdateRegexReplaceInputAndClipboardReplacedTextView
+        //UpdateClipboardReplacedTextPannel
+        //MarkMatchesAndGroups
+        //UpdateRegexReplaceInputBox
+
+        //LeftPaneDisplayMatches > Important
+
         private RichTextBox richTextBox;
 
         int inputGroups = 0;
@@ -27,6 +48,8 @@ namespace RegexHelper
         public static int MaxGroups = 1200;
         public static int Test = 1200;
         public static string NppPath = "";
+
+        public string clipboardSearchTrueText = "";
 
         public Form1()
         {
@@ -41,6 +64,7 @@ namespace RegexHelper
             inputGroupsTextBoxes = new List<RichTextBox>();
 
             this.clipboardSearched.KeyDown += new System.Windows.Forms.KeyEventHandler(this.clipboardSearched_KeyDown);
+            this.clipboardSearched.KeyUp += new System.Windows.Forms.KeyEventHandler(this.clipboardSearched_KeyUp);
             this.regexInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.regexInput_KeyDown);
             this.clipboardReplaced.KeyDown += new System.Windows.Forms.KeyEventHandler(this.clipboardReplaced_KeyDown);
 
@@ -119,7 +143,9 @@ namespace RegexHelper
             Log.LogExecutionTime();
         }
 
-        //Search Text Box
+        /// <summary>
+        /// The regex search pattern text changed
+        /// </summary>
         private void regexInput_TextChanged_1(object sender, EventArgs e)
         {
             Log.LogExecutionTime();
@@ -133,7 +159,9 @@ namespace RegexHelper
             Log.LogExecutionTime();
         }
 
-        //Replace Rext Box
+        /// <summary>
+        /// The replacement regex syntax eg " a $1$2 "
+        /// </summary>
         private void regexReplace_TextChanged(object sender, EventArgs e)
         {
             Log.LogExecutionTime();
@@ -188,22 +216,7 @@ namespace RegexHelper
             }
             Log.LogExecutionTime();
         }
-
-
-        private void clipboardSearched_KeyDown(object sender, KeyEventArgs e)
-        {
-            Log.LogExecutionTime();
-            if (e.Control && e.KeyCode == Keys.V)
-            {
-                // Get the clipboard data as plain text
-                string clipboardText = Clipboard.GetText(TextDataFormat.Text);
-                // Paste the plain text into the RichTextBox
-                clipboardSearched.SelectedText = clipboardText;
-                // Cancel the paste operation
-                e.SuppressKeyPress = true;
-            }
-            Log.LogExecutionTime();
-        }
+     
 
 
         private void RegexInput_VisibleChanged(object sender, EventArgs e)
@@ -234,7 +247,7 @@ namespace RegexHelper
         }
 
 
-        private void LeftPaneDisplayMatches(MatchCollection matches, RichTextBox inputBox)
+        private void LeftPaneDisplayMatches(MatchCollection matches, RichTextBox inputBox, string textToRegexSearch)
         {
             Log.LogExecutionTime();
             var matchesCount = matches.Count;
@@ -244,8 +257,8 @@ namespace RegexHelper
             inputBox.SelectionBackColor = inputBox.BackColor;
             inputBox.SelectionColor = Color.White;
 
-            var colorForFirst = Color.FromArgb(10, 10, 10);
-            var colorForLast = Color.FromArgb(30, 30, 30);
+            var colorForFirstChar = Color.FromArgb(10, 10, 10);
+            var colorForLastChar = Color.FromArgb(30, 30, 30);
 
             var matchList = matches.Take(MaxMatches).ToList();
 
@@ -276,29 +289,29 @@ namespace RegexHelper
                     {
                         inputBox.SelectionStart = group.Index;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForFirst;
+                        inputBox.SelectionBackColor = colorForFirstChar;
                     }
                     else
                     if (twoCharGroup)
                     {
                         inputBox.SelectionStart = group.Index;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForFirst;
+                        inputBox.SelectionBackColor = colorForFirstChar;
 
                         inputBox.SelectionStart = group.Index + 1;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForLast;
+                        inputBox.SelectionBackColor = colorForLastChar;
                     }
                     else
                     if (firstGroup)
                     {
                         inputBox.SelectionStart = group.Index;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForFirst;
+                        inputBox.SelectionBackColor = colorForFirstChar;
 
                         inputBox.SelectionStart = group.Index + group.Length - 1;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForLast;
+                        inputBox.SelectionBackColor = colorForLastChar;
                     }
 
                     groupIndex++;
@@ -309,6 +322,7 @@ namespace RegexHelper
             Log.LogExecutionTime();
         }
 
+      
 
         private void UpdateClipboardSearchTextArea()
         {
@@ -330,13 +344,15 @@ namespace RegexHelper
 
             regexGeneratedText.Text = regexPattern;
 
-            string clipboardText = clipboardSearched.Text;          
+            //string clipboardText = clipboardSearched.Text;          
+            string textToRegexSearch = WhiteSpace.ToVisibleNewLine(clipboardSearchTrueText);
 
             try
             {
-                Regex regex = new Regex(regexPattern);
-                MatchCollection matches = regex.Matches(clipboardText);
-                LeftPaneDisplayMatches(matches, clipboardSearched);
+                var regexPatternWithVisibleNewLine = WhiteSpace.searchToVisibleNewLine(regexPattern);
+                Regex regex = new Regex(regexPatternWithVisibleNewLine);
+                MatchCollection matches = regex.Matches(textToRegexSearch);
+                LeftPaneDisplayMatches(matches, clipboardSearched, textToRegexSearch);
             }
             catch (ArgumentException)
             {
@@ -360,9 +376,54 @@ namespace RegexHelper
         {
             Log.LogExecutionTime();
             string clipboardText = Clipboard.GetText();
+
+            clipboardSearchTrueText = clipboardText;
+            clipboardText = WhiteSpace.ToViewableWhitespace(clipboardText);
+
             this.clipboardSearched.Text = clipboardText ?? "Clipboard does not contain text.";
+
             Log.LogExecutionTime();
         }
+                
+       
+
+        private void clipboardSearched_KeyDown(object sender, KeyEventArgs e)
+        {
+            Log.LogExecutionTime();
+            if (e.Control && e.KeyCode == Keys.V)
+            {
+                // Get the clipboard data as plain text
+                string clipboardText = Clipboard.GetText(TextDataFormat.Text);
+
+                clipboardSearchTrueText = clipboardText;
+                clipboardText = WhiteSpace.ToViewableWhitespace(clipboardText);
+                // Paste the plain text into the RichTextBox
+                clipboardSearched.SelectedText = clipboardText;
+                // Cancel the paste operation
+                e.SuppressKeyPress = true;
+            }
+
+            Log.LogExecutionTime();
+        }
+
+        private void clipboardSearched_KeyUp(object sender, KeyEventArgs e)
+        {
+            Log.LogExecutionTime();
+
+            if (e.KeyCode == Keys.Space)            
+            {
+                var pos = clipboardSearched.SelectionStart;
+
+                clipboardSearched.Text = WhiteSpace.ToViewableWhitespace(clipboardSearched.Text);
+                clipboardSearched.SelectionStart = pos;
+                clipboardSearchTrueText = WhiteSpace.ToInvisibleWhiteSpace(clipboardSearched.Text);
+
+                e.SuppressKeyPress = true;
+            }
+
+            Log.LogExecutionTime();
+        }
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -568,7 +629,7 @@ namespace RegexHelper
                     //   Regex regex = new Regex(regexPattern);
                     //    MatchCollection matches = regex.Matches(clipboardText);
 
-                    clipboardReplaced.Text = Regex.Replace(clipboardText, regexPattern, replacePattern);
+                    clipboardReplaced.Text = Regex.Replace(clipboardSearchTrueText, regexPattern, replacePattern);
                     //DisplayMatches(matches, clipboardReplaced);
 
                     clipboardReplaced.SelectionStart = 0;
@@ -662,8 +723,6 @@ namespace RegexHelper
 
         }
 
-      
-
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
         }
@@ -707,9 +766,6 @@ namespace RegexHelper
         private void RegexLabel_Click(object sender, EventArgs e)
         {
         }
-
-
-
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {

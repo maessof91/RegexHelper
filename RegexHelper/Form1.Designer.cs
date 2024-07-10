@@ -84,9 +84,9 @@ namespace RegexHelper
             RegexLabel.AutoSize = true;
             RegexLabel.Location = new System.Drawing.Point(3, 40);
             RegexLabel.Name = "RegexLabel";
-            RegexLabel.Size = new System.Drawing.Size(39, 15);
+            RegexLabel.Size = new System.Drawing.Size(42, 30);
             RegexLabel.TabIndex = 5;
-            RegexLabel.Text = "Regex";
+            RegexLabel.Text = "Regex View";
             RegexLabel.Click += RegexLabel_Click;
             // 
             // RegexReplaceLabel
@@ -149,9 +149,9 @@ namespace RegexHelper
             SearchLabel.AutoSize = true;
             SearchLabel.Location = new System.Drawing.Point(3, 0);
             SearchLabel.Name = "SearchLabel";
-            SearchLabel.Size = new System.Drawing.Size(42, 15);
+            SearchLabel.Size = new System.Drawing.Size(42, 30);
             SearchLabel.TabIndex = 5;
-            SearchLabel.Text = "Search";
+            SearchLabel.Text = "Regex Input";
             SearchLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             SearchLabel.Click += label4_Click;
             // 
