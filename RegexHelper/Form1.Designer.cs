@@ -30,15 +30,15 @@ namespace RegexHelper
         private void InitializeComponent()
         {
             regexGeneratedText = new System.Windows.Forms.TextBox();
-            clipboardSearched = new System.Windows.Forms.RichTextBox();
+            clipboardSearchedTextArea = new System.Windows.Forms.RichTextBox();
             RegexLabel = new System.Windows.Forms.Label();
             RegexReplaceLabel = new System.Windows.Forms.Label();
             regexReplaceInputBox = new System.Windows.Forms.RichTextBox();
             ClipboardSearchedLabel = new System.Windows.Forms.Label();
             ClipboardReplacedLabel = new System.Windows.Forms.Label();
-            clipboardReplaced = new System.Windows.Forms.RichTextBox();
+            clipboardReplacedTextArea = new System.Windows.Forms.RichTextBox();
             SearchLabel = new System.Windows.Forms.Label();
-            regexInput = new System.Windows.Forms.RichTextBox();
+            regexSearchInputBox = new System.Windows.Forms.RichTextBox();
             AddGroup = new System.Windows.Forms.Button();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             regexGeneratedText2 = new System.Windows.Forms.RichTextBox();
@@ -64,20 +64,20 @@ namespace RegexHelper
             regexGeneratedText.ReadOnly = true;
             regexGeneratedText.Size = new System.Drawing.Size(580, 32);
             regexGeneratedText.TabIndex = 1;
-            regexGeneratedText.TextChanged += textBox2_TextChanged;
+            regexGeneratedText.TextChanged += RegexView_TextChanged;
             // 
-            // clipboardSearched
+            // clipboardSearchedTextArea
             // 
-            clipboardSearched.DetectUrls = false;
-            clipboardSearched.Dock = System.Windows.Forms.DockStyle.Fill;
-            clipboardSearched.Font = new System.Drawing.Font("Segoe UI", 14F);
-            clipboardSearched.Location = new System.Drawing.Point(3, 23);
-            clipboardSearched.MinimumSize = new System.Drawing.Size(4, 600);
-            clipboardSearched.Name = "clipboardSearched";
-            clipboardSearched.Size = new System.Drawing.Size(357, 754);
-            clipboardSearched.TabIndex = 2;
-            clipboardSearched.Text = "";
-            clipboardSearched.TextChanged += richTextBox1_TextChanged;
+            clipboardSearchedTextArea.DetectUrls = false;
+            clipboardSearchedTextArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            clipboardSearchedTextArea.Font = new System.Drawing.Font("Segoe UI", 14F);
+            clipboardSearchedTextArea.Location = new System.Drawing.Point(3, 23);
+            clipboardSearchedTextArea.MinimumSize = new System.Drawing.Size(4, 600);
+            clipboardSearchedTextArea.Name = "clipboardSearchedTextArea";
+            clipboardSearchedTextArea.Size = new System.Drawing.Size(357, 754);
+            clipboardSearchedTextArea.TabIndex = 2;
+            clipboardSearchedTextArea.Text = "";
+            clipboardSearchedTextArea.TextChanged += clipboardSearched_TextChanged;
             // 
             // RegexLabel
             // 
@@ -108,7 +108,7 @@ namespace RegexHelper
             regexReplaceInputBox.Size = new System.Drawing.Size(580, 54);
             regexReplaceInputBox.TabIndex = 8;
             regexReplaceInputBox.Text = "";
-            regexReplaceInputBox.TextChanged += regexReplace_TextChanged;
+            regexReplaceInputBox.TextChanged += regexReplaceInputbox_TextChanged;
             // 
             // ClipboardSearchedLabel
             // 
@@ -132,17 +132,17 @@ namespace RegexHelper
             ClipboardReplacedLabel.Text = "Clipboard Replaced";
             ClipboardReplacedLabel.Click += label3_Click;
             // 
-            // clipboardReplaced
+            // clipboardReplacedTextArea
             // 
-            clipboardReplaced.Dock = System.Windows.Forms.DockStyle.Fill;
-            clipboardReplaced.Font = new System.Drawing.Font("Segoe UI", 14F);
-            clipboardReplaced.Location = new System.Drawing.Point(366, 23);
-            clipboardReplaced.MinimumSize = new System.Drawing.Size(4, 600);
-            clipboardReplaced.Name = "clipboardReplaced";
-            clipboardReplaced.Size = new System.Drawing.Size(357, 754);
-            clipboardReplaced.TabIndex = 4;
-            clipboardReplaced.Text = "";
-            clipboardReplaced.TextChanged += richTextBox2_TextChanged;
+            clipboardReplacedTextArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            clipboardReplacedTextArea.Font = new System.Drawing.Font("Segoe UI", 14F);
+            clipboardReplacedTextArea.Location = new System.Drawing.Point(366, 23);
+            clipboardReplacedTextArea.MinimumSize = new System.Drawing.Size(4, 600);
+            clipboardReplacedTextArea.Name = "clipboardReplacedTextArea";
+            clipboardReplacedTextArea.Size = new System.Drawing.Size(357, 754);
+            clipboardReplacedTextArea.TabIndex = 4;
+            clipboardReplacedTextArea.Text = "";
+            clipboardReplacedTextArea.TextChanged += clipboardReplaced_TextChanged;
             // 
             // SearchLabel
             // 
@@ -155,23 +155,23 @@ namespace RegexHelper
             SearchLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             SearchLabel.Click += label4_Click;
             // 
-            // regexInput
+            // regexSearchInputBox
             // 
-            regexInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            regexInput.CausesValidation = false;
-            regexInput.DetectUrls = false;
-            regexInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            regexInput.Font = new System.Drawing.Font("Segoe UI", 14F);
-            regexInput.Location = new System.Drawing.Point(63, 3);
-            regexInput.MinimumSize = new System.Drawing.Size(100, 4);
-            regexInput.Multiline = false;
-            regexInput.Name = "regexInput";
-            regexInput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            regexInput.Size = new System.Drawing.Size(580, 34);
-            regexInput.TabIndex = 4;
-            regexInput.Text = "";
-            regexInput.WordWrap = false;
-            regexInput.TextChanged += regexInput_TextChanged_1;
+            regexSearchInputBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            regexSearchInputBox.CausesValidation = false;
+            regexSearchInputBox.DetectUrls = false;
+            regexSearchInputBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            regexSearchInputBox.Font = new System.Drawing.Font("Segoe UI", 14F);
+            regexSearchInputBox.Location = new System.Drawing.Point(63, 3);
+            regexSearchInputBox.MinimumSize = new System.Drawing.Size(100, 4);
+            regexSearchInputBox.Multiline = false;
+            regexSearchInputBox.Name = "regexSearchInputBox";
+            regexSearchInputBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            regexSearchInputBox.Size = new System.Drawing.Size(580, 34);
+            regexSearchInputBox.TabIndex = 4;
+            regexSearchInputBox.Text = "";
+            regexSearchInputBox.WordWrap = false;
+            regexSearchInputBox.TextChanged += regexSearchInputbox_TextChanged_1;
             // 
             // AddGroup
             // 
@@ -198,7 +198,7 @@ namespace RegexHelper
             tableLayoutPanel1.Controls.Add(RegexLabel, 0, 1);
             tableLayoutPanel1.Controls.Add(SearchLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(regexGeneratedText, 1, 1);
-            tableLayoutPanel1.Controls.Add(regexInput, 1, 0);
+            tableLayoutPanel1.Controls.Add(regexSearchInputBox, 1, 0);
             tableLayoutPanel1.Controls.Add(AddGroup, 2, 0);
             tableLayoutPanel1.Controls.Add(regexGeneratedText2, 1, 2);
             tableLayoutPanel1.Controls.Add(keyBox, 1, 4);
@@ -230,6 +230,7 @@ namespace RegexHelper
             regexGeneratedText2.Size = new System.Drawing.Size(580, 34);
             regexGeneratedText2.TabIndex = 10;
             regexGeneratedText2.Text = "";
+            regexGeneratedText2.TextChanged += regexGeneratedText2_TextChanged;
             // 
             // keyBox
             // 
@@ -302,8 +303,8 @@ namespace RegexHelper
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(ClipboardSearchedLabel, 0, 0);
             tableLayoutPanel2.Controls.Add(ClipboardReplacedLabel, 1, 0);
-            tableLayoutPanel2.Controls.Add(clipboardSearched, 0, 1);
-            tableLayoutPanel2.Controls.Add(clipboardReplaced, 1, 1);
+            tableLayoutPanel2.Controls.Add(clipboardSearchedTextArea, 0, 1);
+            tableLayoutPanel2.Controls.Add(clipboardReplacedTextArea, 1, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             tableLayoutPanel2.Location = new System.Drawing.Point(0, 244);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(50, 10, 10, 10);
@@ -345,15 +346,15 @@ namespace RegexHelper
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox regexGeneratedText;
-        private System.Windows.Forms.RichTextBox clipboardSearched;
-        private System.Windows.Forms.RichTextBox clipboardReplaced;
+        private System.Windows.Forms.RichTextBox clipboardSearchedTextArea;
+        private System.Windows.Forms.RichTextBox clipboardReplacedTextArea;
         private System.Windows.Forms.Label RegexLabel;
         private System.Windows.Forms.Label ClipboardSearchedLabel;
         private System.Windows.Forms.Label ClipboardReplacedLabel;
         private System.Windows.Forms.Label SearchLabel;
         private System.Windows.Forms.Label RegexReplaceLabel;
         private System.Windows.Forms.RichTextBox regexReplaceInputBox;
-        private System.Windows.Forms.RichTextBox regexInput;
+        private System.Windows.Forms.RichTextBox regexSearchInputBox;
         private System.Windows.Forms.Button AddGroup;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

@@ -8,6 +8,8 @@ namespace RegexHelper;
 
 public class WhiteSpace
 {
+    public static bool ShowWhitespace = true;
+
     private const string SpaceReplacementInView = "∘";
 
     private const string TabReplacementInView = "→";
