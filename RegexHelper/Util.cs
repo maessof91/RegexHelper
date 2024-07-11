@@ -44,6 +44,45 @@ public class Util
         return pairs;
     }
 
+    public static List<(int, int, int)> GetPairsReplaced(string input, char start, char end, char charIndexer)
+    {
+        Log.LogExecutionTime();
+        var pairs = new List<(int, int,int)>();
+        var stack = new Stack<(int,int)>();
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            if (input[i] == start && (i == 0 || input[i - 1] != '\\'))
+            {
+                var count = 1;
+                while (input[i + count+1] == charIndexer)
+                {
+                    count++;           
+                }
+                stack.Push((i,count));
+            }
+            else if (input[i] == end && (i == 0 || input[i - 1] != '\\'))
+            {
+                if (stack.Count > 0)
+                {
+                    var openingIndex = stack.Pop();
+                    pairs.Add((openingIndex.Item1, i, openingIndex.Item2));
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        if (stack.Count > 0)
+        {
+        }
+
+        Log.LogExecutionTime();
+        return pairs;
+    }
+
 
     public static void MarkTextFull(int indexStart, int indexEnd, Color color, Color colorBack, RichTextBox input)
     {

@@ -600,14 +600,15 @@ namespace RegexHelper
         {
             Log.LogExecutionTime();
 
-            string replacePattern = "\u200B" + regexReplaceInputBox.Text + "\u200C" + "\u200D";
-            replacePattern = Regex.Replace(replacePattern, @"\$(\d+)", "\u200B" + "$$$1" + "\u200C");
+            string replacePattern = regexReplaceInputBox.Text;
+            char groupStartChar = '\u200B';
+            char groupIndexChar = '\u200E';
+            char groupEndChar = '\u200C';
+            replacePattern = AddHiddenMarkingSymbols(replacePattern, groupStartChar, groupIndexChar, groupEndChar);
+
             replacePattern = replacePattern.Replace("\\n", "\n");
             replacePattern = replacePattern.Replace("\\r", "\r");
             replacePattern = replacePattern.Replace("\\t", "\t");
-
-            //string replacePattern = ">"+regexReplace.Text+ "<";
-            //replacePattern = Regex.Replace(replacePattern, @"\$(\d+)", ">$$1‌‌‌‌‌‌‌‌‌‌‌‌‌<");
 
             var clipboardText = clipboardSearchedTextArea.Text;
 
@@ -615,18 +616,14 @@ namespace RegexHelper
             {
                 try
                 {
-                    //   Regex regex = new Regex(regexPattern);
-                    //    MatchCollection matches = regex.Matches(clipboardText);
-
                     clipboardReplacedTextArea.Text = Regex.Replace(clipboardSearchTrueText, regexPattern, replacePattern);
-                    //DisplayMatches(matches, clipboardReplaced);
 
                     clipboardReplacedTextArea.SelectionStart = 0;
                     clipboardReplacedTextArea.SelectionLength = clipboardReplacedTextArea.Text.Length;
                     clipboardReplacedTextArea.SelectionColor = Color.White;
 
-                    var pairs = Util.GetPairs(clipboardReplacedTextArea.Text, '\u200B', '\u200C');
-                    //var pairs = GetPairs(clipboardReplaced.Text, '>', '<');
+                    var pairs = Util.GetPairsReplaced(clipboardReplacedTextArea.Text, groupStartChar, groupEndChar, groupIndexChar);
+
 
                     pairs = MarkMatchesAndGroups(pairs);
                 }
@@ -636,6 +633,37 @@ namespace RegexHelper
                 }
             }
             Log.LogExecutionTime();
+        }
+
+        private static string AddHiddenMarkingSymbols(string replacePattern, char groupStartChar, char groupIndexChar, char groupEndChar)
+        {
+            var groups = Regex.Matches(replacePattern, @"\$\d+");
+            var alreadyCompletedNumbers = new Dictionary<int, int>();
+            foreach (Match group in groups)
+            {
+                var text = group.Value;
+                var numberString = group.Value.Substring(1);
+                var number = Int32.Parse(numberString);
+
+                if (alreadyCompletedNumbers.ContainsKey(number))
+                {
+                    continue;
+                }
+
+                alreadyCompletedNumbers.Add(number, number);
+
+                var newText = "" + groupStartChar;
+                for (int i = 0; i < number; i++)
+                {
+                    newText += groupIndexChar;
+                }
+                newText += text;
+                newText += groupEndChar;
+
+                replacePattern = replacePattern.Replace(text, newText);
+            }
+
+            return replacePattern;
         }
 
         private void clipboardReplacedTextArea_KeyDown(object sender, KeyEventArgs e)
@@ -747,13 +775,19 @@ namespace RegexHelper
 
         //======================================================================================================
 
-        private List<(int, int)> MarkMatchesAndGroups(List<(int, int)> pairs)
+        private List<(int, int, int)> MarkMatchesAndGroups(List<(int, int, int)> pairs)
         {
             var endOfMatches = Regex.Matches(clipboardReplacedTextArea.Text, "\u200D");
 
-            var endOfMatchesIndexes = endOfMatches.Select(m => (m as Match).Index).OrderBy(i => i).ToList();
+            var endOfMatchesIndexes = endOfMatches
+                .Select(m => (m as Match).Index)
+                .OrderBy(i => i)
+                .ToList();
 
-            pairs = pairs.OrderBy(u => u.Item1).ToList();
+            pairs = pairs
+                .OrderBy(u => u.Item1)
+                .ToList();
+
             var col = 0;
             var i = 0;
             foreach (var pair in pairs)
@@ -763,12 +797,18 @@ namespace RegexHelper
                     break;
                 }
 
-                if (endOfMatchesIndexes[i] < pair.Item1)
-                {
-                    col = 0;
-                    i++;
-                }
-                Util.MarkTextFull(pair.Item1, pair.Item2 + 1, Colors.groupColors[col], Colors.groupColorsContrasted[col], clipboardReplacedTextArea);
+                //if (endOfMatchesIndexes[i] < pair.Item1)
+                //{
+                //    col = 0;
+                //    i++;
+                //}
+
+                Util.MarkTextFull(
+                    pair.Item1,
+                    pair.Item2 + 1,
+                    Colors.groupColors[pair.Item3],
+                    Colors.groupColorsContrasted[col],
+                    clipboardReplacedTextArea);
 
                 col++;
             }
