@@ -30,7 +30,7 @@ namespace RegexHelper
         private void InitializeComponent()
         {
             regexGeneratedText = new System.Windows.Forms.TextBox();
-            clipboardSearchedTextArea = new System.Windows.Forms.RichTextBox();
+            clipboardSearchedTextArea = new RoundedRichTextBox();
             RegexLabel = new System.Windows.Forms.Label();
             RegexReplaceLabel = new System.Windows.Forms.Label();
             regexReplaceInputBox = new System.Windows.Forms.RichTextBox();
@@ -57,17 +57,22 @@ namespace RegexHelper
             // 
             // regexGeneratedText
             // 
+            regexGeneratedText.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            regexGeneratedText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             regexGeneratedText.Dock = System.Windows.Forms.DockStyle.Fill;
             regexGeneratedText.Font = new System.Drawing.Font("Segoe UI", 14F);
             regexGeneratedText.Location = new System.Drawing.Point(63, 43);
             regexGeneratedText.Name = "regexGeneratedText";
             regexGeneratedText.ReadOnly = true;
-            regexGeneratedText.Size = new System.Drawing.Size(580, 32);
+            regexGeneratedText.Size = new System.Drawing.Size(580, 25);
             regexGeneratedText.TabIndex = 1;
             regexGeneratedText.TextChanged += RegexView_TextChanged;
             // 
             // clipboardSearchedTextArea
             // 
+            clipboardSearchedTextArea.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            clipboardSearchedTextArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            clipboardSearchedTextArea.CornerRadius = 15;
             clipboardSearchedTextArea.DetectUrls = false;
             clipboardSearchedTextArea.Dock = System.Windows.Forms.DockStyle.Fill;
             clipboardSearchedTextArea.Font = new System.Drawing.Font("Segoe UI", 14F);
@@ -101,11 +106,13 @@ namespace RegexHelper
             // 
             // regexReplaceInputBox
             // 
+            regexReplaceInputBox.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            regexReplaceInputBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             regexReplaceInputBox.Dock = System.Windows.Forms.DockStyle.Fill;
             regexReplaceInputBox.Font = new System.Drawing.Font("Segoe UI", 14F);
             regexReplaceInputBox.Location = new System.Drawing.Point(63, 123);
             regexReplaceInputBox.Name = "regexReplaceInputBox";
-            regexReplaceInputBox.Size = new System.Drawing.Size(580, 54);
+            regexReplaceInputBox.Size = new System.Drawing.Size(580, 34);
             regexReplaceInputBox.TabIndex = 8;
             regexReplaceInputBox.Text = "";
             regexReplaceInputBox.TextChanged += regexReplaceInputbox_TextChanged;
@@ -134,6 +141,8 @@ namespace RegexHelper
             // 
             // clipboardReplacedTextArea
             // 
+            clipboardReplacedTextArea.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
+            clipboardReplacedTextArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
             clipboardReplacedTextArea.Dock = System.Windows.Forms.DockStyle.Fill;
             clipboardReplacedTextArea.Font = new System.Drawing.Font("Segoe UI", 14F);
             clipboardReplacedTextArea.Location = new System.Drawing.Point(366, 23);
@@ -157,7 +166,8 @@ namespace RegexHelper
             // 
             // regexSearchInputBox
             // 
-            regexSearchInputBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            regexSearchInputBox.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            regexSearchInputBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             regexSearchInputBox.CausesValidation = false;
             regexSearchInputBox.DetectUrls = false;
             regexSearchInputBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -176,19 +186,22 @@ namespace RegexHelper
             // AddGroup
             // 
             AddGroup.AutoSize = true;
+            AddGroup.BackColor = System.Drawing.Color.Silver;
             AddGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            AddGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             AddGroup.Location = new System.Drawing.Point(649, 3);
             AddGroup.Name = "AddGroup";
             AddGroup.Size = new System.Drawing.Size(74, 34);
             AddGroup.TabIndex = 3;
             AddGroup.Text = "AddGroup";
-            AddGroup.UseVisualStyleBackColor = true;
+            AddGroup.UseVisualStyleBackColor = false;
             AddGroup.Click += AddGroup_Click;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AllowDrop = true;
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.BackColor = System.Drawing.Color.Gray;
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -214,14 +227,16 @@ namespace RegexHelper
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(726, 220);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(726, 200);
             tableLayoutPanel1.TabIndex = 11;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint_1;
             // 
             // regexGeneratedText2
             // 
+            regexGeneratedText2.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            regexGeneratedText2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             regexGeneratedText2.Dock = System.Windows.Forms.DockStyle.Fill;
             regexGeneratedText2.Font = new System.Drawing.Font("Segoe UI", 14F);
             regexGeneratedText2.Location = new System.Drawing.Point(63, 83);
@@ -234,10 +249,12 @@ namespace RegexHelper
             // 
             // keyBox
             // 
+            keyBox.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            keyBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             tableLayoutPanel1.SetColumnSpan(keyBox, 2);
             keyBox.Dock = System.Windows.Forms.DockStyle.Fill;
             keyBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            keyBox.Location = new System.Drawing.Point(63, 183);
+            keyBox.Location = new System.Drawing.Point(63, 163);
             keyBox.Name = "keyBox";
             keyBox.Size = new System.Drawing.Size(660, 34);
             keyBox.TabIndex = 11;
@@ -247,7 +264,7 @@ namespace RegexHelper
             // key
             // 
             key.AutoSize = true;
-            key.Location = new System.Drawing.Point(3, 180);
+            key.Location = new System.Drawing.Point(3, 160);
             key.Name = "key";
             key.Size = new System.Drawing.Size(43, 30);
             key.TabIndex = 12;
@@ -255,26 +272,31 @@ namespace RegexHelper
             // 
             // buttonToTransformFile
             // 
+            buttonToTransformFile.BackColor = System.Drawing.Color.Silver;
+            buttonToTransformFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonToTransformFile.Location = new System.Drawing.Point(649, 83);
             buttonToTransformFile.Name = "buttonToTransformFile";
             buttonToTransformFile.Size = new System.Drawing.Size(74, 23);
             buttonToTransformFile.TabIndex = 13;
             buttonToTransformFile.Text = "ToTransformFile";
-            buttonToTransformFile.UseVisualStyleBackColor = true;
+            buttonToTransformFile.UseVisualStyleBackColor = false;
             buttonToTransformFile.Click += buttonToTransformFile_Click;
             // 
             // buttonTransformFile
             // 
+            buttonTransformFile.BackColor = System.Drawing.Color.Silver;
+            buttonTransformFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonTransformFile.Location = new System.Drawing.Point(649, 123);
             buttonTransformFile.Name = "buttonTransformFile";
             buttonTransformFile.Size = new System.Drawing.Size(74, 23);
             buttonTransformFile.TabIndex = 14;
             buttonTransformFile.Text = "TransformFile";
-            buttonTransformFile.UseVisualStyleBackColor = true;
+            buttonTransformFile.UseVisualStyleBackColor = false;
             buttonTransformFile.Click += buttonTransformFile_Click;
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = System.Drawing.Color.Gray;
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1 });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -298,6 +320,7 @@ namespace RegexHelper
             // 
             // tableLayoutPanel2
             // 
+            tableLayoutPanel2.BackColor = System.Drawing.Color.Gray;
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -306,7 +329,7 @@ namespace RegexHelper
             tableLayoutPanel2.Controls.Add(clipboardSearchedTextArea, 0, 1);
             tableLayoutPanel2.Controls.Add(clipboardReplacedTextArea, 1, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            tableLayoutPanel2.Location = new System.Drawing.Point(0, 244);
+            tableLayoutPanel2.Location = new System.Drawing.Point(0, 224);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(50, 10, 10, 10);
             tableLayoutPanel2.MinimumSize = new System.Drawing.Size(0, 800);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -329,7 +352,7 @@ namespace RegexHelper
             MinimumSize = new System.Drawing.Size(400, 400);
             Name = "Form1";
             StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
-            Text = "Form1";
+            Text = "Regex Helper";
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
             Load += Form1_Load;
             tableLayoutPanel1.ResumeLayout(false);
@@ -346,7 +369,6 @@ namespace RegexHelper
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox regexGeneratedText;
-        private System.Windows.Forms.RichTextBox clipboardSearchedTextArea;
         private System.Windows.Forms.RichTextBox clipboardReplacedTextArea;
         private System.Windows.Forms.Label RegexLabel;
         private System.Windows.Forms.Label ClipboardSearchedLabel;
@@ -366,6 +388,8 @@ namespace RegexHelper
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Button buttonToTransformFile;
         private System.Windows.Forms.Button buttonTransformFile;
+
+        private RoundedRichTextBox clipboardSearchedTextArea;
     }
 }
 

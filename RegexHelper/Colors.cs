@@ -13,23 +13,23 @@ public class Colors
              Color.Yellow,                  //0 
              Color.Green,                   //1 
              Color.Teal,                    //2 
-             Color.Cyan,                    //3 
-             Color.Cornsilk,                //4 
-             Color.Gray,                    //5 
+             Color.Chocolate ,              //3 
+             Color.SpringGreen,             //4 
+             Color.LightPink,               //5 
              Color.Lavender,                //6 
-             Color.Pink,                    //7 
+             Color.LightSkyBlue,            //7 
              Color.HotPink,                 //8 
-             Color.Azure,                   //9 
+             Color.MediumPurple,            //9 
              Color.LemonChiffon,            //10
-             Color.SpringGreen,             //11
+             Color.Fuchsia,                  //11
              Color.LightSeaGreen,           //12
-             Color.Turquoise,               //13
+             Color.Goldenrod ,               //13
              Color.LightCyan,               //14
              Color.MediumVioletRed,         //15
-             Color.Fuchsia,                 //16
-             Color.LightSkyBlue,            //17
+             Color.Cornsilk  ,              //16
+             Color.Pink,                   //17
              Color.SandyBrown,              //18
-             Color.LightSalmon,             //19
+             Color.LightSlateGray,          //19
              Color.LightGreen,              //20
              Color.PowderBlue,              //21
              Color.MediumTurquoise,         //22
@@ -38,10 +38,10 @@ public class Colors
              Color.PaleTurquoise,           //25
              Color.LightSteelBlue,          //26
              Color.Plum,                    //27
-             Color.MediumPurple,            //28
+             Color.Azure,                   //28
              Color.PaleVioletRed,           //29
              Color.SkyBlue,                 //30
-             Color.LightSlateGray,          //31
+             Color.LightSalmon,             //31
              Color.LightGray,               //32
              Color.LightYellow,             //33
              Color.Honeydew,                //34
@@ -50,15 +50,15 @@ public class Colors
              Color.SeaShell,                //37
              Color.PaleGoldenrod,           //38
              Color.OldLace,                 //39
-             Color.PaleGreen,              //40
+             Color.PaleGreen,               //40
              Color.PeachPuff,               //41
              Color.MintCream,               //42
              Color.LightBlue,               //43
-             Color.LightPink,               //44
+              Color.Gray,                   //44
              Color.Azure,                   //45
              Color.LightCoral,              //46
-             Color.Chocolate ,              //47
-             Color.Goldenrod ,              //48
+             Color.Cyan,                    //47
+             Color.Turquoise,              //48
         };
 
     public static Color[] groupColorsContrasted = new Color[] {

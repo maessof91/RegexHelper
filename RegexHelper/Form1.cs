@@ -166,7 +166,11 @@ namespace RegexHelper
             Console.Clear();
             Log.LogExecutionTime();
             RichTextBox newTextBox = new RichTextBox();
-            newTextBox.Size = new System.Drawing.Size(483, 23);
+            newTextBox.BackColor = System.Drawing.Color.FromArgb(45, 45, 48); // Dark background color
+            newTextBox.ForeColor = System.Drawing.Color.White;
+            newTextBox.Size = new System.Drawing.Size(483, 43);
+            newTextBox.Font = new System.Drawing.Font(newTextBox.Font.FontFamily, 14f);
+            newTextBox.BorderStyle = BorderStyle.None;
             inputGroups++;
             newTextBox.Name = $"group{inputGroups}";
             regexSearchInputBox.Text += $"(#{inputGroups})";
@@ -240,18 +244,18 @@ namespace RegexHelper
         }
 
         //todo is below used
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            Log.LogExecutionTime();
-            //HighlightRegexSpecialCharacters(regexInput);
+        //private void textBox1_TextChanged(object sender, EventArgs e)
+        //{
+        //    Log.LogExecutionTime();
+        //    //HighlightRegexSpecialCharacters(regexInput);
 
-            regexSearchInputBox.SelectionStart = 0;
-            regexSearchInputBox.SelectionLength = 1;
-            regexSearchInputBox.SelectionBackColor = Color.Yellow;
+        //    regexSearchInputBox.SelectionStart = 0;
+        //    regexSearchInputBox.SelectionLength = 1;
+        //    regexSearchInputBox.SelectionBackColor = Color.Yellow;
 
-            UpdateClipboardSearchTextArea();
-            Log.LogExecutionTime();
-        }
+        //    UpdateClipboardSearchTextArea();
+        //    Log.LogExecutionTime();
+        //}
 
         private void regexSearchInputBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -291,7 +295,7 @@ namespace RegexHelper
             regexSearchInputBox.SelectionStart = 0;
             regexSearchInputBox.SelectionLength = regexSearchInputBox.Text.Length;
             regexSearchInputBox.SelectionColor = Colors.groupColors[0];
-            regexSearchInputBox.SelectionBackColor = Colors.groupColorsContrasted[0];
+            //regexSearchInputBox.SelectionBackColor = Colors.groupColorsContrasted[0];
 
             foreach (char specialChar in @"[](){}^$.|*+?\")
             {
@@ -476,7 +480,7 @@ namespace RegexHelper
 
             inputBox.SelectionStart = 0;
             inputBox.SelectionLength = inputBox.TextLength;
-            inputBox.SelectionBackColor = inputBox.BackColor;
+            //inputBox.SelectionBackColor = inputBox.BackColor;
             inputBox.SelectionColor = Color.White;
 
             var colorForFirstChar = Color.FromArgb(10, 10, 10);
@@ -511,18 +515,18 @@ namespace RegexHelper
                     {
                         inputBox.SelectionStart = group.Index;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForFirstChar;
+                        //inputBox.SelectionBackColor = colorForFirstChar;
                     }
                     else
                     if (twoCharGroup)
                     {
                         inputBox.SelectionStart = group.Index;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForFirstChar;
+                        //inputBox.SelectionBackColor = colorForFirstChar;
 
                         inputBox.SelectionStart = group.Index + 1;
                         inputBox.SelectionLength = 1;
-                        inputBox.SelectionBackColor = colorForLastChar;
+                        //inputBox.SelectionBackColor = colorForLastChar;
                     }
                     else
                     if (firstGroup)
